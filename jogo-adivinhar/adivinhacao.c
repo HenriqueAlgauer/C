@@ -19,15 +19,22 @@ int main(){
     printf("\nBem Vindo ao jogo da adivinhação\n");
     linha();
 
+
     int num_secreto = 20;
     int chute;
     int i = 0;
-    int num_tentativas = 5;
+    int num_tentativa = 0;
 
-    while(i < num_tentativas && chute != num_secreto){
-        printf("\nTentativa %d de %d", i+1, num_tentativas);
+    while(chute != num_secreto){
+        printf("Tentativa %d", num_tentativa+1);
         printf("\nQual é o seu chute ? ");
         scanf("%d", &chute);
+        
+        if(chute < 0){
+            printf("Voce nao pode chutar numero negativos");
+            continue;
+        }
+
         if(chute == num_secreto){
             printf("Parabéns! Você acertou !");
         }else if(chute > num_secreto){
@@ -36,7 +43,10 @@ int main(){
             printf("Você errou !\nSeu chute foi menor que o numero secreto");
         }
         
-        i++;
+        num_tentativa++;
     }
+
+    printf("Você acertou na tentativa numero: %d", num_tentativa);
+    printf("Fim de jogo");
     return 0;
 }
