@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <locale.h>
 
-
-
 void linha(){
     int i;
 
@@ -21,12 +19,26 @@ int main(){
     printf("\nBem Vindo ao jogo da adivinhação\n");
     linha();
 
+    int num_secreto = 20;
     int chute;
+    int i = 0;
+    int num_tentativas = 5;
 
-    printf("Qual é o seu chute ? ");
-    scanf("%d", &chute);
-    
-
-
+    while(i < num_tentativas && chute != num_secreto){
+        printf("\nTentativa %d de %d", i+1, num_tentativas);
+        printf("\nQual é o seu chute ? ");
+        scanf("%d", &chute);
+        if(chute == num_secreto){
+            printf("Parabéns! Você acertou !");
+        }else{
+            printf("Você errou !\n");
+            if(chute > num_secreto){
+                printf("Seu chute foi maior que o numero secreto");
+            }else{
+                printf("Seu chute foi menor que o numero secreto");
+            }
+        }
+        i++;
+    }
     return 0;
 }
