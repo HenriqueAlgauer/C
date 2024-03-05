@@ -30,14 +30,12 @@ int main(){
         scanf("%d", &chute);
         if(chute == num_secreto){
             printf("Parabéns! Você acertou !");
+        }else if(chute > num_secreto){
+            printf("Você errou !\nSeu chute foi maior que o numero secreto");
         }else{
-            printf("Você errou !\n");
-            if(chute > num_secreto){
-                printf("Seu chute foi maior que o numero secreto");
-            }else{
-                printf("Seu chute foi menor que o numero secreto");
-            }
+            printf("Você errou !\nSeu chute foi menor que o numero secreto");
         }
+        
         i++;
     }
     return 0;
