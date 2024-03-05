@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <time.h> 
 
 void linha(){
     int i;
@@ -11,20 +12,21 @@ void linha(){
 }
 
 int main(){
-
     setlocale(LC_ALL, "Portuguese");
-
 
     linha();
     printf("\nBem Vindo ao jogo da adivinhação\n");
     linha();
 
+    int segundos = time(0);
+    srand(segundos);
 
-    int num_secreto = 20;
+    int numero_grande = rand();
+    
+    int num_secreto = numero_grande % 100;
     int chute;
     int num_tentativa = 0;
     float pontos = 1000;
-    float pontos_perdidos = 0;
 
     while(chute != num_secreto){
         printf("\nTentativa %d", num_tentativa+1);
@@ -40,14 +42,12 @@ int main(){
             printf("Parabéns! Você acertou !");
         }else if(chute > num_secreto){
             printf("Você errou !\nSeu chute foi maior que o numero secreto");
-            pontos_perdidos =  (chute - num_secreto) / 2.0;
-            pontos -= pontos_perdidos;
         }else{
             printf("Você errou !\nSeu chute foi menor que o numero secreto");
-            pontos_perdidos =  (num_secreto - chute) / 2.0;
-            pontos -= pontos_perdidos;
         }
         
+        float pontos_perdidos = abs(num_secreto - chute) / 2.0;
+        pontos -= pontos_perdidos;
         num_tentativa++;
     }
 
