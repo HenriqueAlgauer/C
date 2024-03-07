@@ -2,24 +2,27 @@
 #include <stdlib.h>
 #include "fogefoge.h"
 
-struct mapa m;
+char** mapa;
+
+int linhas;
+int colunas;
 
 void liberamapa(){
-    for(int i =0; i<m.linhas; i++){
-        free(m.matriz[i]);
+    for(int i =0; i<linhas; i++){
+        free(mapa[i]);
     }
 }
 
 void alocamapa(){
-    m.matriz = malloc(sizeof(char*)*m.linhas);
-    for(int i=0; i<m.linhas; i++){
-        m.matriz[i] = malloc(sizeof(char)* (m.colunas+1));
+    mapa = malloc(sizeof(char*)*linhas);
+    for(int i=0; i<linhas; i++){
+        mapa[i] = malloc(sizeof(char)* (colunas+1));
     }
 }
 
 void imprimemapa() {
-    for(int i = 0; i < m.linhas; i++) {
-        printf("%s\n", m.matriz[i]);
+    for(int i = 0; i < linhas; i++) {
+        printf("%s\n", mapa[i]);
     }
 }
 
@@ -31,11 +34,11 @@ void lermapa(){
         exit(1);
     }
 
-    fscanf(f, "%d %d", &(m.linhas), &(m.colunas));
+    fscanf(f, "%d %d", &linhas, &colunas);
     alocamapa();
 
     for(int i =0;i<5;i++){
-        fscanf(f,"%s", m.matriz[i]);
+        fscanf(f,"%s", mapa[i]);
     }
 
     fclose(f);
@@ -49,9 +52,9 @@ void move(char direcao){
     int x;
     int y;
 
-    for(int i =0;i<m.linhas; i++){
-        for(int j=0;j<m.colunas;j++){
-            if(m.matriz[i][j] == '@'){
+    for(int i =0;i<linhas; i++){
+        for(int j=0;j<colunas;j++){
+            if(mapa[i][j] == '@'){
                 x =i;
                 y =j;
                 break;
@@ -61,15 +64,15 @@ void move(char direcao){
 
     switch(direcao){
         case 'a': 
-            m.matriz[x][y-1] = '@';break;
+            mapa[x][y-1] = '@';break;
         case 'd':
-            m.matriz[x][y+1] = '@';break;
+            mapa[x][y+1] = '@';break;
         case 'w':
-            m.matriz[x-1][y] = '@';break;
+            mapa[x-1][y] = '@';break;
         case 's':
-            m.matriz[x+1][y] = '@';break;
+            mapa[x+1][y] = '@';break;
     }
-    m.matriz[x][y] = '.';
+    mapa[x][y] = '.';
 }
 
 int main(){
@@ -85,7 +88,7 @@ int main(){
     }while(!acabou());
     
     for(int i =0;i<5;i++){
-        printf("%s\n", m.matriz[i]);
+        printf("%s\n", mapa[i]);
     }
 
     liberamapa();
