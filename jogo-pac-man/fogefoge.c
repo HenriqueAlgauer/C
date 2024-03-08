@@ -22,22 +22,32 @@ void move(char direcao){
 
     int proximox = heroi.x;
     int proximoy = heroi.y;
-    
+
     switch(direcao){
         case 'a': 
-            m.matriz[heroi.x][heroi.y-1] = '@';
-            heroi.y--;break;
+            proximoy--;break;
         case 'd':
-            m.matriz[heroi.x][heroi.y+1] = '@';
-            heroi.y++;break;
+            proximoy++;break;
         case 'w':
-            m.matriz[heroi.x-1][heroi.y] = '@';
-            heroi.x--;break;
+            proximox--;break;
         case 's':
-            m.matriz[heroi.x+1][heroi.y] = '@';
-            heroi.x++;break;
+            proximox++;break;
     }
 
+    if(proximox >= m.linhas){
+        return;
+    }
+    if(proximoy >= m.colunas){
+        return;
+    }
+    if(m.matriz[proximox][proximoy] != '.'){
+        return;
+    }
+
+    m.matriz[heroi.x][heroi.y]= '.';
+    m.matriz[proximox][proximoy] = '@';
+    heroi.x = proximox;
+    heroi.y = proximoy;
 }
 
 int main(){

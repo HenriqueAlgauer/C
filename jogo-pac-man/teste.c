@@ -4,50 +4,56 @@
 #include "mapa.h"
 
 MAPA m;
+POSICAO heroi;
+
+int x;
+int y;
 
 int acabou(){
     return 0;
 }
 
-void move(char direcao) {
+void move(char direcao){
 
-    int x;
-    int y;
+    if(direcao !='a' && 
+        direcao !='d' && 
+        direcao !='w' && 
+        direcao !='s')return;
 
-    for(int i =0;i<m.linhas; i++){
-        for(int j=0;j<m.colunas;j++){
-            if(m.matriz[i][j] == 'c'){
-                x =i;
-                y =j;
-                break;
-            }
-        }
-    }
+    int proximox = heroi.x;
+    int proximoy = heroi.y;
 
-    switch(direcao) {
-        case 'a':
-            m.matriz[x][y-1] = '@';
-            y--;
-            break;
-        case 'w':
-            m.matriz[x-1][y] = '@';
-            x--;
-            break;
-        case 's':
-            m.matriz[x+1][y] = '@';
-            x++;
-            break;
+    switch(direcao){
+        case 'a': 
+            proximoy--;break;
         case 'd':
-            m.matriz[x][y+1] = '@';
-            y++;
-            break;
+            proximoy++;break;
+        case 'w':
+            proximox--;break;
+        case 's':
+            proximox++;break;
     }
-    m.matriz[x][y]='.';
+
+    if(proximox >= m.linhas){
+        return;
+    }
+    if(proximoy >= m.colunas){
+        return;
+    }
+    if(m.matriz[proximox][proximoy] != '.'){
+        return;
+    }
+
+    m.matriz[heroi.x][heroi.y]= '.';
+    m.matriz[proximox][proximoy] = '@';
+    heroi.x = proximox;
+    heroi.y = proximoy;
 }
 
 int main(){
 
-    lemapa(&m);
+    lermapa(&m);
+    encontramapa(&m, &heroi, '@');
 
     do{
         imprimemapa(&m);
