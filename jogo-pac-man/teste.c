@@ -4,7 +4,6 @@
 #include "mapa.h"
 
 MAPA m;
-POSICAO heroi;
 
 int acabou(){
     return 0;
@@ -12,33 +11,43 @@ int acabou(){
 
 void move(char direcao) {
 
-    m.matriz[heroi.x][heroi.y] = '.';
+    int x;
+    int y;
+
+    for(int i =0;i<m.linhas; i++){
+        for(int j=0;j<m.colunas;j++){
+            if(m.matriz[i][j] == 'c'){
+                x =i;
+                y =j;
+                break;
+            }
+        }
+    }
 
     switch(direcao) {
         case 'a':
-            m.matriz[heroi.x][heroi.y-1] = '@';
-            heroi.y--;
+            m.matriz[x][y-1] = '@';
+            y--;
             break;
         case 'w':
-            m.matriz[heroi.x-1][heroi.y] = '@';
-            heroi.x--;
+            m.matriz[x-1][y] = '@';
+            x--;
             break;
         case 's':
-            m.matriz[heroi.x+1][heroi.y] = '@';
-            heroi.x++;
+            m.matriz[x+1][y] = '@';
+            x++;
             break;
         case 'd':
-            m.matriz[heroi.x][heroi.y+1] = '@';
-            heroi.y++;
+            m.matriz[x][y+1] = '@';
+            y++;
             break;
     }
-
+    m.matriz[x][y]='.';
 }
 
 int main(){
 
     lemapa(&m);
-    encontramapa(&m, &heroi, '@');
 
     do{
         imprimemapa(&m);

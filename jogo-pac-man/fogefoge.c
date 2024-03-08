@@ -14,8 +14,15 @@ int acabou(){
 }
 
 void move(char direcao){
-    m.matriz[heroi.x][heroi.y] = '.';
 
+    if(direcao !='a' && 
+        direcao !='d' && 
+        direcao !='w' && 
+        direcao !='s')return;
+
+    int proximox = heroi.x;
+    int proximoy = heroi.y;
+    
     switch(direcao){
         case 'a': 
             m.matriz[heroi.x][heroi.y-1] = '@';
