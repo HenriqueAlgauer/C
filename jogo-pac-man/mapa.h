@@ -6,8 +6,16 @@ struct mapa{
 
 typedef struct mapa MAPA;
 
+struct posicao {
+    int x;
+    int y;
+};
+
+typedef struct posicao POSICAO;
+
 void liberamapa(MAPA *m);
 void alocamapa(MAPA *m);
 void lermapa(MAPA *m);
 void imprimemapa(MAPA *m);
+void encontramapa(MAPA *m, POSICAO* p, char c);
 
