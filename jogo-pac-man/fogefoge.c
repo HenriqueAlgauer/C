@@ -13,12 +13,16 @@ int acabou(){
     return 0;
 }
 
+int verificadirecao(char direcao){
+    return direcao =='a' || 
+        direcao =='d' || 
+        direcao =='w' || 
+        direcao =='s';
+}
+
 void move(char direcao){
 
-    if(direcao !='a' && 
-        direcao !='d' && 
-        direcao !='w' && 
-        direcao !='s')return;
+    if(!verificadirecao(direcao))return;
 
     int proximox = heroi.x;
     int proximoy = heroi.y;
@@ -34,15 +38,9 @@ void move(char direcao){
             proximox++;break;
     }
 
-    if(proximox >= m.linhas){
-        return;
-    }
-    if(proximoy >= m.colunas){
-        return;
-    }
-    if(m.matriz[proximox][proximoy] != '.'){
-        return;
-    }
+    if(!ehvalida(&m, proximox, proximoy))return;  
+
+    if(!ehvazia(&m, proximox, proximoy))return;
 
     m.matriz[heroi.x][heroi.y]= '.';
     m.matriz[proximox][proximoy] = '@';
