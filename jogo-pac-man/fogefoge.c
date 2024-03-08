@@ -28,13 +28,13 @@ void move(char direcao){
     int proximoy = heroi.y;
 
     switch(direcao){
-        case 'a': 
+        case ESQUERDA: 
             proximoy--;break;
-        case 'd':
+        case DIREITA:
             proximoy++;break;
-        case 'w':
+        case CIMA:
             proximox--;break;
-        case 's':
+        case BAIXO:
             proximox++;break;
     }
 
@@ -42,8 +42,7 @@ void move(char direcao){
 
     if(!ehvazia(&m, proximox, proximoy))return;
 
-    m.matriz[heroi.x][heroi.y]= '.';
-    m.matriz[proximox][proximoy] = '@';
+    andanomapa(&m, heroi.x, heroi.y, proximox, proximoy);
     heroi.x = proximox;
     heroi.y = proximoy;
 }
@@ -51,7 +50,7 @@ void move(char direcao){
 int main(){
 
     lermapa(&m);
-    encontramapa(&m, &heroi, '@');
+    encontramapa(&m, &heroi, HEROI);
 
     do{
         imprimemapa(&m);
